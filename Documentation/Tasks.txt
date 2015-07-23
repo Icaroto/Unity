@@ -1,0 +1,19 @@
+Beta level
+	
+
+Basic behavior clickable objects
+	- Change color when hover.
+	
+Basic behavior character
+	- Move from A to B when click.
+	- Animating when moving.
+	- Trigger animation when colide.
+
+Annoying stats
+	- Bar of bad actions (depend on dificulty)
+	- Add +1 when trigger bad actions
+	- Game Over when bar is full
+	
+High code behavior
+	- Dynamically build level
+
