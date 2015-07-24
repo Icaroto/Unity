@@ -20,7 +20,6 @@ public class ObjectController : MonoBehaviour {
 	void Update () {
 		if (shouldmove) {
 			float step = 2 * Time.deltaTime;
-			Vector3 onde = new Vector3 (10, 10, 10);
 			character.GetComponent<Transform>().position = Vector3.MoveTowards(character.GetComponent<Transform>().position,position, step);
 		}
 	}
