@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CharacterController : MonoBehaviour {
-	public Transform target;
-	public float speed;
+public class CharController : MonoBehaviour {
+
 
 	void Update() {
 //		float step = speed * Time.deltaTime;

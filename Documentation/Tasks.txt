@@ -7,8 +7,8 @@ Basic behavior clickable objects
 	
 Basic behavior character
 	- Move from A to B when click.		OK
-	- Animating when moving.
-		Animate the character
+	- Animating when moving.			OK
+		Animate the character			OK
 	- Trigger new animation when collide.
 
 Annoying stats
