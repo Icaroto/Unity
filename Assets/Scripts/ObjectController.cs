@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using AnnoyingFlatmate.Enum;
 
 public class ObjectController : MonoBehaviour {
 
@@ -8,12 +9,15 @@ public class ObjectController : MonoBehaviour {
 	private Vector3 size;
 	private Vector3 position;
 	private bool shouldmove;
+    private bool animationFinished;    
 	// Use this for initialization
 	void Start () {
-		size = GetComponent<Transform> ().localScale;
+		size = GetComponentInParent<Transform> ().localScale;
+        //Debug.Log("Startou com " + size);
 		position = GetComponent<Transform>().position;
 		character.GetComponent<Animator>().SetBool("isMoving", false);
 		shouldmove = false;
+        animationFinished = false;
 //		Debug.Log (size);
 	}
 	
@@ -27,8 +31,11 @@ public class ObjectController : MonoBehaviour {
 
 	void OnMouseOver ()
 	{
+        //ObjectState.IDLE;
 		GetComponent<Renderer>().material.color = Color.yellow;// * Time.deltaTime;
-		GetComponent<Transform> ().localScale = size + new Vector3 (0.5f, 0.5f, 0.5f);
+        Vector3 newsize = size + new Vector3 (0.5f, 0.5f, 0.5f);
+        GetComponentInParent<Transform> ().localScale = newsize;
+        //Debug.Log("Tentou aumentar para " + newsize);
 		if (Input.GetMouseButtonDown (0)) {
 			character.GetComponent<Animator>().SetBool("isMoving", true);
 			shouldmove = true;
@@ -39,11 +46,19 @@ public class ObjectController : MonoBehaviour {
 	void OnMouseExit ()
 	{
 		GetComponent<Renderer>().material.color = Color.white;
-		GetComponent<Transform> ().localScale = size;
+		GetComponent<Transform>().localScale = size;
 	}
+
 
 	void OnTriggerEnter2D (){
-		Debug.Log ("ta na cama o safado!");
-	}
+        GetComponent<Animator>().SetBool("startAnimation", true);
+        CharController script = (CharController) character.GetComponent(typeof(CharController));
+        script.HideCharacter(true);
+    }
 
+    void FinishedAnimation()
+    {
+        Debug.Log("entroufinishedanimation");
+        animationFinished = true;
+    }
 }

@@ -14,4 +14,9 @@ public class CharController : MonoBehaviour {
 	
 	}
 
+    public void HideCharacter(bool isInteracting)
+    {
+        gameObject.SetActive(!isInteracting);
+    }
+
 }
