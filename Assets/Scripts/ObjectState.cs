@@ -2,9 +2,8 @@
 {
     public enum ObjectState
     {
-        NONE = 0,
-        IDLE = 1,
-        MOUSEOVER = 2,
-        PLAYERINTERACTION = 3,
+        IDLE = 0,
+        OVER = 1,
+        ANIMATION = 2,
     }
 }
