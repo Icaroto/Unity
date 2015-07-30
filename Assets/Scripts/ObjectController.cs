@@ -9,13 +9,14 @@ public class ObjectController : MonoBehaviour {
 	private Vector3 size;
 	private Vector3 position;
 	private bool shouldmove;
-    private bool objectActivated;
+    CharController charController;
+
 	// Use this for initialization
 	void Start () {
+        charController = (CharController)character.GetComponent(typeof(CharController));
 		position = GetComponent<Transform>().position;
 		character.GetComponent<Animator>().SetBool("isMoving", false);
 		shouldmove = false;
-        objectActivated = false;
 	}
 	
 	// Update is called once per frame
@@ -28,15 +29,12 @@ public class ObjectController : MonoBehaviour {
 
 	void OnMouseOver ()
 	{
-        if (!objectActivated) { 
-		    GetComponent<Renderer>().material.color = Color.yellow;// * Time.deltaTime;
-            GetComponent<Animator>().SetInteger("ObjectState", 1);
-            if (Input.GetMouseButtonDown (0)) {
-			    character.GetComponent<Animator>().SetBool("isMoving", true);
-			    shouldmove = true;
-		    }
-        }
-			
+		GetComponent<Renderer>().material.color = Color.yellow;// * Time.deltaTime;
+        GetComponent<Animator>().SetInteger("ObjectState", 1);
+        if (Input.GetMouseButtonDown (0)) {
+			character.GetComponent<Animator>().SetBool("isMoving", true);
+			shouldmove = true;
+		}
 	}
 	
 	void OnMouseExit ()
@@ -48,9 +46,13 @@ public class ObjectController : MonoBehaviour {
 
 	void OnTriggerEnter2D (){
         shouldmove = false;
-        objectActivated = true;
         GetComponent<Animator>().SetInteger("ObjectState", 2);
-        CharController script = (CharController) character.GetComponent(typeof(CharController));
-         script.HideCharacter(true);
+        GetComponent<PolygonCollider2D>().enabled = false;
+        charController.HideCharacter(true);
+    }
+
+    void AfterAnimationEnds()
+    {
+        charController.HideCharacter(false);
     }
 }

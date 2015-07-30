@@ -6,16 +6,25 @@ Basic behavior clickable objects
 	- Resize when hover.				OK
 	
 Basic behavior character
-	- Move from A to B when click.		OK
-	- Animating when moving.			OK
-		Animate the character			OK
-	- Trigger new animation when collide.
+	- Move from A to B when click.			OK
+	- Animating when moving.				OK
+		Animate the character				OK
+	- Trigger new animation when collider. 	OK
+	- face correct side when walking
+	-block other clicks when walking
 
 Annoying stats
 	- Bar of bad actions (depend on dificulty)
 	- Add +1 when trigger bad actions
 	- Game Over when bar is full
 	
+
 High code behavior
 	- Dynamically build level
-
+	- Randomly place objects on room
+	
+Lights?	https://www.assetstore.unity3d.com/en/#!/content/24083
+Create prefab, change sprite, recreate polygon 2D. 
+Change animation
+Mobile/Desktop differences on animations (no "over" animation on desktop)
+Riddles? Warm/cold system?
