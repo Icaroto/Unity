@@ -1,58 +1,69 @@
 ﻿using UnityEngine;
 using System.Collections;
-using AnnoyingFlatmate.Enum;
 
 public class ObjectController : MonoBehaviour {
 
 	public GameObject character;
 
-	private Vector3 size;
-	private Vector3 position;
-	private bool shouldmove;
+    private Vector3 objectSize;
+	private Vector3 objectPosition;
+	
+    private bool moveChar;
+
     CharController charController;
 
 	// Use this for initialization
 	void Start () {
         charController = (CharController)character.GetComponent(typeof(CharController));
-		position = GetComponent<Transform>().position;
-		character.GetComponent<Animator>().SetBool("isMoving", false);
-		shouldmove = false;
+		
+        objectPosition = GetComponent<Transform>().position;
+
+		moveChar = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (shouldmove) {
-			float step = 2 * Time.deltaTime;
-			character.GetComponent<Transform>().position = Vector3.MoveTowards(character.GetComponent<Transform>().position,position, step);
+		if (moveChar && !charController.AmIInteracting())
+		{
+			charController.Move(objectPosition);
+            charController.StartInteract();
 		}
+
 	}
 
-	void OnMouseOver ()
+    void OnMouseDown()
 	{
-		GetComponent<Renderer>().material.color = Color.yellow;// * Time.deltaTime;
-        GetComponent<Animator>().SetInteger("ObjectState", 1);
+        if (charController.AmIInteracting()) return;
+        //GetComponent<Animator>().SetInteger("ObjectState", 1);
+        //GetComponent<Renderer>().material.color = Color.yellow;
         if (Input.GetMouseButtonDown (0)) {
-			character.GetComponent<Animator>().SetBool("isMoving", true);
-			shouldmove = true;
-		}
+			moveChar = true;
+            charController.SetTargetID(GetInstanceID());
+        }
+
 	}
+
+    void OnTouchDown()
+    {
+        if (charController.AmIInteracting()) return;
+        moveChar = true;
+        charController.SetTargetID(GetInstanceID());
+    }
 	
-	void OnMouseExit ()
-	{
-        GetComponent<Animator>().SetInteger("ObjectState", 0);
-		GetComponent<Renderer>().material.color = Color.white;
-	}
-
-
-	void OnTriggerEnter2D (){
-        shouldmove = false;
+    void OnTriggerEnter2D ()
+    {
+        if (charController.GetTargetID() != GetInstanceID()) return;
+        charController.StopMove();
+	    moveChar = false;
         GetComponent<Animator>().SetInteger("ObjectState", 2);
-        GetComponent<PolygonCollider2D>().enabled = false;
         charController.HideCharacter(true);
+        GetComponent<PolygonCollider2D>().enabled = false;
+        Debug.Log("Entrou aqui");
     }
 
     void AfterAnimationEnds()
     {
         charController.HideCharacter(false);
+        charController.StopInteract();
     }
 }

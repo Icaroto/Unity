@@ -2,8 +2,8 @@ Beta level
 	
 
 Basic behavior clickable objects
-	- Change color when hover.			OK
-	- Resize when hover.				OK
+	- Change color when mouse over.			OK
+	- Resize when mouse over.				OK
 	
 Basic behavior character
 	- Move from A to B when click.			OK
@@ -11,10 +11,10 @@ Basic behavior character
 		Animate the character				OK
 	- Trigger new animation when collider. 	OK
 	- face correct side when walking
-	-block other clicks when walking
+	- block other clicks when walking		OK
 
 Annoying stats
-	- Bar of bad actions (depend on dificulty)
+	- Bar of bad actions (depend on difficulty)
 	- Add +1 when trigger bad actions
 	- Game Over when bar is full
 	

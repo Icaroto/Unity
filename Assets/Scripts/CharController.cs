@@ -1,13 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CharController : MonoBehaviour {
+public class CharController : MonoBehaviour
+{
 
+    private bool moving;
+    private bool interacting;
+
+    private int targetID;
+
+    private Vector3 newPosition;
 
 	void Update() {
-//		float step = speed * Time.deltaTime;
-//		Vector3 onde = new Vector3 (10, 10, 10);
-//		transform.position = Vector3.MoveTowards(transform.position,onde, step);
+        if (moving)
+        {
+            float step = 2 * Time.deltaTime;
+            GetComponent<Transform>().position = Vector3.MoveTowards(GetComponent<Transform>().position, newPosition, step);
+        }
 	}
 	// Use this for initialization
 	void Start () {
@@ -18,5 +27,51 @@ public class CharController : MonoBehaviour {
     {
         gameObject.SetActive(!isInteracting);
     }
+
+    public void Move(Vector3 toWhere)
+    {
+        moving = true;
+        newPosition = toWhere;
+        GetComponent<Animator>().SetBool("isMoving", true);
+    }
+
+    public void StopMove()
+    {
+        moving = false;
+        GetComponent<Animator>().SetBool("isMoving", false);
+    }
+
+    public bool AmIMoving()
+    {
+        return moving;
+    }
+
+    public void StartInteract()
+    {
+        interacting = true;
+    }
+
+    public void StopInteract()
+    {
+        interacting = false;
+    }
+
+    public bool AmIInteracting()
+    {
+        return interacting;
+    }
+
+    public void SetTargetID(int id)
+    {
+        targetID = id;
+    }
+
+    public int GetTargetID()
+    {
+        return targetID;
+    }
+
+
+
 
 }
