@@ -4,11 +4,10 @@ using System.Collections;
 public class UIController : MonoBehaviour
 {
     public Canvas canvas;
-    private static GameObject itemsGroup;
-
-	// Use this for initialization
+    
+    // Use this for initialization
 	void Start () {
-        itemsGroup = canvas.transform.FindChild("ItemsGroup").FindChild("ItemIcons").gameObject;
+        HideAllItems();
     }
 	
 	// Update is called once per frame
@@ -16,13 +15,13 @@ public class UIController : MonoBehaviour
 	
 	}
 
-    public static void TurnItemVisible(string itemName)
+    public void TurnItemVisible(string itemName)
     {
 
     }
 
-    public static void HideAllItems()
+    public void HideAllItems()
     {
-        itemsGroup.SetActive(false); //GetComponent<Renderer>().enabled = false;
+        canvas.transform.FindChild("ItemsGroup").FindChild("ItemIcons").gameObject.SetActive(false);
     }   
 }
