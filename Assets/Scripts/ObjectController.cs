@@ -4,20 +4,23 @@ using System.Collections;
 public class ObjectController : MonoBehaviour {
 
 	public GameObject character;
-
+    public GameObject camera;
     private Vector3 objectSize;
 	private Vector3 objectPosition;
 	
     private bool moveChar;
 
     CharController charController;
-
-	// Use this for initialization
+    ScoreController scoreController;
+    UIController uiController;
+	
+    // Use this for initialization
 	void Start () {
         charController = (CharController)character.GetComponent(typeof(CharController));
-		
-        objectPosition = GetComponent<Transform>().position;
+        scoreController = (ScoreController)camera.GetComponent(typeof(ScoreController));
+        uiController = (UIController)camera.GetComponent(typeof(UIController));
 
+        objectPosition = GetComponent<Transform>().position;
 		moveChar = false;
 	}
 	
@@ -55,8 +58,17 @@ public class ObjectController : MonoBehaviour {
         if (charController.GetTargetID() != GetInstanceID()) return;
         charController.StopMove();
 	    moveChar = false;
-        GetComponent<Animator>().SetInteger("ObjectState", 2);
-        charController.HideCharacter(true);
+        if (GetComponent<Transform>().tag == "DoorKey") {
+            //Good Animation
+            GetComponent<Animator>().SetInteger("ObjectState", 3);
+        }
+        else
+        {
+            //Bad animation
+            GetComponent<Animator>().SetInteger("ObjectState", 2);
+            scoreController.AddBar(1);
+        }
+            charController.HideCharacter(true);
         GetComponent<PolygonCollider2D>().enabled = false;
         Debug.Log("Entrou aqui");
     }
