@@ -70,9 +70,13 @@ public class ObjectController : MonoBehaviour {
         }
             charController.HideCharacter(true);
         GetComponent<PolygonCollider2D>().enabled = false;
-        Debug.Log("Entrou aqui");
+
     }
 
+    void OnTriggerStay2D()
+    {
+        OnTriggerEnter2D();
+    }
     void AfterAnimationEnds()
     {
         charController.HideCharacter(false);
