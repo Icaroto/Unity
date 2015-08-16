@@ -2,9 +2,13 @@
 using System.Collections;
 
 public class RenderLevel : MonoBehaviour {
-    UIController uiControl;
 	// Use this for initialization
-	void Start () {
+
+    UIController uiController;
+
+    void Start () {
+        //uiController = (UIController)GetComponent(typeof(UIController));
+        
         UIController.HideAllItems();
     }
 	
